@@ -6,7 +6,7 @@
 /*   By: pcaplat <pcaplat@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 14:25:57 by pcaplat           #+#    #+#             */
-/*   Updated: 2026/07/30 16:59:12 by pcaplat          ###   ########.fr       */
+/*   Updated: 2026/08/02 16:24:58 by pcaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,19 @@ ScalarConverter	&ScalarConverter::operator=	( ScalarConverter const &other )
 
 static bool	isChar( std::string const &str )
 {
-	if (str.length() != 1)
+	int	quotes = 0;
+
+	if (str[0] == '\'')
+		quotes++;
+	if (quotes == 0 && str.length() != 1)
 		return (false);
-	if (std::isprint(str[0]) && !std::isdigit(str[0]))
+	else if (quotes == 1 && str.length() != 3)
+		return (false);
+	if ((std::isprint(str[0]) && !std::isdigit(str[0])) ||
+			(quotes == 1 && str[2] == '\''))
+	{
 		return (true);
+	}
 	return (false);
 }
 
@@ -95,31 +104,15 @@ void	ScalarConverter::convert( std::string const &input )
 		return ;
 	}
 	else if (isChar(input))
-	{
 		std::cout << "input is a single char" << std::endl;
-		return ;
-	}
 	else if (isLiteral(input))
-	{
 		std::cout << "input is a litteral expression" << std::endl;
-		return ;
-	}
 	else if (isFloat(input))
-	{
 		std::cout << "input is a float" << std::endl;
-		return ;
-	}
 	else if (isDouble(input))
-	{
 		std::cout << "input is a double" << std::endl;
-		return ;
-	}
 	else if (isInt(input))
-	{
 		std::cout << "input in an Int" << std::endl;
-		return ;
-	}
 	else
 		std::cerr << "invalid input provided" << std::endl;
 }
-
