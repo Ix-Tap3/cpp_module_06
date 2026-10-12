@@ -14,6 +14,7 @@
 #include <iostream>
 #include <cctype>
 #include <climits>
+#include <limits>
 #include <cstdlib>
 #include <cfloat>
 #include <cmath>
@@ -185,7 +186,7 @@ void	ScalarConverter::convert( std::string const &input )
 				std::cout << "char: Non displayable" << std::endl;
 			else
 				std::cout << "char: \'" << static_cast<char>(f) << "\'" << std::endl;
-			if (f >= INT_MIN && f <= INT_MAX)
+			if (f >= std::numeric_limits<int>::min() && f <= std::numeric_limits<int>::max())
 				std::cout << "int: " << static_cast<int>(f) << std::endl;
 			else
 				std::cout << "int: impossible" << std::endl;
